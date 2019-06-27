@@ -22,3 +22,10 @@ clear:
 	sudo rm -rf .docker/*/data/*
 	sudo rm -rf var/*
 	sudo rm -rf vendor/
+
+restart:
+	sudo make down
+	sudo make up
+
+reset:
+	sudo make down && sudo make clear && sudo make build && sudo make up
