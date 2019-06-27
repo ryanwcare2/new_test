@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class PetitionRepository extends ServiceEntityRepository
 {
     const ORDER_ASC = "asc";
-    const ORDER_DESC = "asc";
+    const ORDER_DESC = "desc";
 
     public function __construct(RegistryInterface $registry)
     {
@@ -32,9 +32,9 @@ class PetitionRepository extends ServiceEntityRepository
     {
         usort($petitions, function(Petition $petitionA, Petition $petitionB) use ($order) {
             if ($order === self::ORDER_ASC) {
-                return $petitionA->getStopDate() > $petitionB->stopDate();
-            } else if ($order === self::ORDER_DESC) {
                 return $petitionA->getStopDate() < $petitionB->stopDate();
+            } else if ($order === self::ORDER_DESC) {
+                return $petitionA->getStopDate() > $petitionB->stopDate();
             } else {
                 throw new \Exception("Wrong type of order");
             }
