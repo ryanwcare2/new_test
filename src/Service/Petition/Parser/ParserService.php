@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Petition\Parser;
 use App\Entity\Feed;
 use App\Entity\Petition;
+use App\Service\Petition\Parser\Exceptions\PetitionParseException;
 
 /**
  * Created by PhpStorm.
@@ -30,7 +31,7 @@ class ParserService
         $feed = $strategy->parse($inputData);
 
         if ($feed === null) {
-            throw new \Exception("Can not parse data");
+            throw new PetitionParseException("Can not parse petitions data");
         }
 
         return $feed->getPetitions();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Petition;
+use App\Exceptions\InternalException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -36,7 +37,7 @@ class PetitionRepository extends ServiceEntityRepository
             } else if ($order === self::ORDER_DESC) {
                 return $petitionA->getStopDate() > $petitionB->stopDate();
             } else {
-                throw new \Exception("Wrong type of order");
+                throw new InternalException("Wrong type of order");
             }
         });
 

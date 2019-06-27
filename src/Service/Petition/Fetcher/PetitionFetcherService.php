@@ -10,7 +10,8 @@ declare(strict_types=1);
 
 namespace App\Service\Petition\Fetcher;
 
-use Symfony\Component\Config\Definition\Exception\Exception;
+use App\Exceptions\InternalException;
+use App\Service\Petition\Fetcher\Exceptions\ApiResponseException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,7 +38,7 @@ class PetitionFetcherService extends AbstractFetcher
     public function fetch(IFetchOptions $fetchOptions): string
     {
         if (!$fetchOptions instanceof PetitionFetchOptions) {
-            throw new Exception('Wrong type of class in $feedOptions');
+            throw new InternalException('Wrong type of class in $feedOptions');
         }
 
         $response = $this->client->request(
@@ -47,7 +48,7 @@ class PetitionFetcherService extends AbstractFetcher
         );
 
         if($response->getStatusCode() != Response::HTTP_OK) {
-            throw new \Exception("API error");
+            throw new ApiResponseException("API error");
         }
 
         return $response->getBody()->getContents();

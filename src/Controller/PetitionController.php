@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Petition;
 use App\Entity\PetitionOutputFormat;
+use App\Exceptions\FormValidationException;
 use App\Forms\PetitionOutputFormatType;
 use App\Service\Petition\PetitionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,7 +73,7 @@ class PetitionController extends AbstractController
 
             return $response;
         } else {
-            throw new \Exception("Form validation error");
+            throw new FormValidationException("Form validation error");
         }
     }
 }
